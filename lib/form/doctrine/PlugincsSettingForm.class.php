@@ -83,17 +83,17 @@ abstract class PlugincsSettingForm extends BasecsSettingForm
   // Type Yesno
   public function getYesnoSettingWidget()
   {
-    return new sfWidgetFormSelectRadio(array('choices' => array('1' => 'Yes', '0' => 'No')), $this->getObject()->getOptionsArray());
+    return new sfWidgetFormSelectRadio(array('choices' => array('yes' => 'Yes', 'no' => 'No')), $this->getObject()->getOptionsArray());
   }
   public function getYesnoSettingValidator()
   {
-    return new sfValidatorChoice(array('choices' => array('1', '0'), 'required' => false));
+    return new sfValidatorChoice(array('choices' => array('yes', 'no'), 'required' => false));
   }
   
   //Type Select List
   public function getSelectSettingWidget()
   {
-    return new sfWidgetFormSelect(array('choices' => $this->getObject()->getOptionsArray(), 'required' => false));
+    return new sfWidgetFormSelect(array('choices' => $this->getObject()->getOptionsArray()));
   }
   public function getSelectSettingValidator()
   {
@@ -103,11 +103,11 @@ abstract class PlugincsSettingForm extends BasecsSettingForm
   //Type Model
   public function getModelSettingWidget()
   {
-    return new sfWidgetFormDoctrineChoice($this->getObject()->getOptionsArray());
+    return new sfWidgetFormDoctrineChoice(array_intersect_key($this->getObject()->getOptionsArray(), array_count_values(array('model', 'add_empty', 'method', 'key_method', 'order_by', 'query', 'multiple', 'table_method'))));
   }
   public function getModelSettingValidator()
   {
-    return new sfValidatorDoctrineChoice($this->getObject()->getOptionsArray());
+    return new sfValidatorDoctrineChoice(array_intersect_key($this->getObject()->getOptionsArray(), array_count_values(array('model', 'query', 'column', 'multiple', 'min', 'max'))));
   }
   
   //Type Upload

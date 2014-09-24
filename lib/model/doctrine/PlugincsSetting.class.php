@@ -23,7 +23,24 @@ abstract class PlugincsSetting extends BasecsSetting
   // convert the options text area to an array
   public function getOptionsArray()
   {
-    return sfToolkit::stringToArray($this->getWidgetOptions());
+    // if useYaml - get widget options as YAML
+    if (sfConfig::get('app_csSettingsPlugin_useYaml'))
+    {
+      if (trim($this->getWidgetOptions()))
+      {
+        $yaml = new sfYamlParser();
+        return $yaml->parse($this->getWidgetOptions());
+      }
+      else
+      {
+        return array();
+      }
+    }
+    // else - get widget options as string
+    else
+    {
+      return sfToolkit::stringToArray($this->getWidgetOptions());
+    }
   }
   
   // path to uploaded files

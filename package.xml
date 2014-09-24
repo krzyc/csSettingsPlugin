@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.4.1" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>csSettingsPlugin</name>
+ <channel>pear.symfony-project.com</channel>
+ <summary>Manage user-controlled site settings</summary>
+ <description>
+   Much like the sfConfig::get() method, use csSettings::get() to call dynamic, user-defined settings.  An admin generator interface allows easy administration.
+  </description>
+ <lead>
+  <name>Brent Shaffer</name>
+  <user>bshaffer</user>
+  <email>bshaffer@centresource.com</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Nicolas Mathon</name>
+  <user>nmathon</user>
+  <email>nicolas.mathon@lp-system.fr</email>
+  <active>yes</active>
+</developer>
+ <date>2010-04-19</date>
+ <version>
+   <release>1.0.3</release>
+   <api>1.0.3</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+<license uri="http://www.symfony-project.com/license">MIT</license>
+ <notes>-</notes>
+ <contents><dir name="/"><dir name="config"><file name="app.yml" role="data"/><dir name="doctrine"><file name="schema.yml" role="data"/></dir><file name="routing.yml" role="data"/></dir><dir name="data"><dir name="fixtures"><file name="fixtures.yml.sample" role="data"/></dir></dir><dir name="lib"><file name="BasecsSettings.class.php" role="data"/><file name="csSettings.class.php" role="data"/><dir name="filter"><dir name="doctrine"><file name="PlugincsSettingFormFilter.class.php" role="data"/></dir></dir><dir name="form"><dir name="doctrine"><file name="PlugincsSettingForm.class.php" role="data"/><file name="SettingsListForm.class.php" role="data"/></dir></dir><dir name="model"><dir name="doctrine"><file name="PlugincsSetting.class.php" role="data"/><file name="PlugincsSettingTable.class.php" role="data"/></dir></dir></dir><file name="LICENSE" role="data"/><dir name="modules"><dir name="csSetting"><dir name="actions"><file name="actions.class.php" role="data"/></dir><dir name="config"><file name="generator.yml" role="data"/></dir><dir name="lib"><file name="BasecsSettingActions.class.php" role="data"/><file name="csSettingGeneratorConfiguration.class.php" role="data"/><file name="csSettingGeneratorHelper.class.php" role="data"/></dir><dir name="templates"><file name="_list.php" role="data"/><file name="_list_actions.php" role="data"/><file name="_list_td_actions.php" role="data"/><file name="_list_td_tabular.php" role="data"/><file name="_setting_group.php" role="data"/><file name="_value.php" role="data"/><file name="indexSuccess.php" role="data"/></dir></dir></dir><file name="README" role="data"/><dir name="web"><dir name="css"><file name="cs_settings.css" role="data"/></dir><dir name="images"><file name="restore-all.png" role="data"/><file name="restore.png" role="data"/></dir></dir></dir></contents>
+
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.2.0</min>
+    <max>1.4.0</max>
+   </package>
+  </required>
+ </dependencies>
+
+ <phprelease>
+ </phprelease>
+
+ <changelog>
+  <release>
+    <version>
+     <release>1.0.0</release>
+     <api>1.0.0</api>
+    </version>
+    <stability>
+     <release>stable</release>
+     <api>stable</api>
+    </stability>
+    <date>2009-07-07</date>
+    <license uri="http://www.symfony-project.org/license">MIT license</license>
+    <notes>
+    * Initial creation of plugin
+    </notes>
+  </release>
+    <release>
+     <version>
+      <release>1.0.1</release>
+      <api>1.0.1</api>
+     </version>
+     <stability>
+      <release>stable</release>
+      <api>stable</api>
+     </stability>
+     <date>2009-07-07</date>
+     <license uri="http://www.symfony-project.org/license">MIT license</license>
+     <notes>
+     * Fixed documentation typos, added "default" functionality on csSetting creation
+     </notes>
+  </release>
+  <release>
+     <version>
+      <release>1.0.2</release>
+      <api>1.0.2</api>
+     </version>
+     <stability>
+      <release>stable</release>
+      <api>stable</api>
+     </stability>
+     <date>2010-04-19</date>
+     <license uri="http://www.symfony-project.org/license">MIT license</license>
+     <notes>
+     * Fixed PHP 5.3 and symfony 1.4 problems.
+     </notes>
+  </release>
+  <release>
+     <version>
+      <release>1.0.3</release>
+      <api>1.0.3</api>
+     </version>
+     <stability>
+      <release>stable</release>
+      <api>stable</api>
+     </stability>
+     <date>2010-05-14</date>
+     <license uri="http://www.symfony-project.org/license">MIT license</license>
+     <notes>
+     * Adds ability to use your own cache handler
+     </notes>
+  </release>
+ </changelog>
+</package>

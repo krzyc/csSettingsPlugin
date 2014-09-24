@@ -7,9 +7,9 @@
         <tr>
           <?php include_partial('csSetting/list_th_tabular', array('sort' => $sort)) ?>
           <th id="sf_admin_list_th_actions">
-          <?php if (csSettings::isAuthenticated($sf_user)): ?>
+          <?php /*if (csSettings::isAuthenticated($sf_user)):*/ ?>
             <?php echo __('Actions', array(), 'sf_admin') ?>
-          <?php endif ?>
+          <?php /*endif*/ ?>
           </th>
         </tr>
       </thead>

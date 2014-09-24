@@ -23,6 +23,6 @@ all:
       class: sfFileCache
       options:
         automatic_cleaning_factor: 0
-        cache_dir:                 %SF_TEMPLATE_CACHE_DIR%
-        lifetime:                  86400
-        prefix:                    %SF_APP_DIR%/template
+        cache_dir:                 %SF_CACHE_DIR%/cs_settings
+        lifetime:                  300
+        #prefix:                    %SF_APP_DIR%/template

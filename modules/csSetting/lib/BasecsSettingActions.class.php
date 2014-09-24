@@ -20,14 +20,34 @@ class BasecsSettingActions extends AutocsSettingActions
   
   public function executeListSaveSettings(sfWebRequest $request)
   {
-    self::executeIndex($request);
-    if($settings = $request->getParameter('cs_setting'))
+    //print_r($_POST);
+    //die();
+    //self::executeIndex($request);
+    $changed = 0;
+    
+    if ($settings = $request->getParameter('cs_setting'))
     {
-      $this->form = new SettingsListForm();
-      $this->form->bind($settings, $request->getfiles('cs_setting'));
-      if ($this->form->isValid()) 
+      foreach (Doctrine::getTable('csSetting')->findAllForList() as $setting)
       {
-        foreach($this->form->getValues() as $slug => $value)
+	if (isset($settings[$setting->getSlug()]))
+	{
+	  $form = new csSettingAdminForm($setting);
+	    $setting->setValue($form->getSettingValidator()->clean($settings[$setting->getSlug()]));
+	    $setting->save();
+	    $changed = 1;
+	}
+      }
+    }
+    
+    if ($changed)
+      $this->getUser()->setFlash('notice', 'Your settings have been saved.');
+    
+    $this->redirect($request->getReferer());
+    
+      /*$this->form = new SettingsListForm();
+      foreach ($settings as $key => $value)
+      {
+	$this->form[$key]->setDefault($value); /*foreach($this->form->getValues() as $slug => $value)
         {
           $setting = Doctrine::getTable('csSetting')->findOneBySlug($slug);
           if ($setting) 
@@ -37,25 +57,32 @@ class BasecsSettingActions extends AutocsSettingActions
               $setting->setValue($value);
               $setting->save();
             }
+            $setting->setValue($value);
+            $setting->save();
           }
-        }
+        }* /
+      }
+      //$this->form->bind($settings, $request->getfiles('cs_setting'));
+      /*if ($this->form->isValid()) 
+      {
         
-        if($files = $request->getFiles('cs_setting'))
+        echo 'valid';
+        /*if($files = $request->getFiles('cs_setting'))
         {
           $this->processUpload($settings, $files);
-        }
+        }* /
         
         // Update form with new values
-        $this->form = new SettingsListForm();
-
-        $this->getUser()->setFlash('notice', 'Your settings have been saved.');
+        //$this->form = new SettingsListForm();
+/*
+        
       }
       else
       {
         $this->getUser()->setFlash('error', 'Your form contains some errors');
       }
     }
-    $this->setTemplate('index');
+    $this->setTemplate('index');*/
   }
   
   public function executeListRestoreDefault(sfWebRequest $request)
