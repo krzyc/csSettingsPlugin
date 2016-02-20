@@ -29,7 +29,12 @@ class BasecsSettings
     $authCredential = sfConfig::get('app_csSettingsPlugin_authCredential');
 
     $hasAccess = false;
-    if ($authMethod)
+    if ($authMethod == 'isDevEnvironment')
+    {
+      if (sfConfig::get('sf_environment') != 'dev')
+        return false;
+    }
+    elseif ($authMethod)
     {
       $hasAccess = $user->$authMethod();
     }
