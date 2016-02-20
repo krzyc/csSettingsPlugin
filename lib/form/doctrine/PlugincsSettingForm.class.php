@@ -121,16 +121,20 @@ abstract class PlugincsSettingForm extends BasecsSettingForm
     
     // If you want to pass the widget custom settings, you can override in your setting's options  
     $options = array_merge($options, $this->getObject()->getOptionsArray());
-    unset($options['upload_path']);
+    unset($options['upload_path'], $options['mime_types']);
     
     return new sfWidgetFormInputFileEditable($options);
   }
   
   public function getUploadSettingValidator()
   {
+    $mime_types = 'web_images';
+    $opts = $this->getObject()->getOptionsArray();
+    if (isset($opts['mime_types']))
+      $mime_types = is_array($opts['mime_types']) ? $opts['mime_types'] : array($opts['mime_types']);
     return new sfValidatorFile(array(
       'path' => $this->getObject()->getUploadPath(),
-      'mime_types' => 'web_images',
+      'mime_types' => $mime_types,
       'required' => false,
       ));
   }
