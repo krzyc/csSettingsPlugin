@@ -20,22 +20,27 @@ class BasecsSettingActions extends AutocsSettingActions
   
   public function executeListSaveSettings(sfWebRequest $request)
   {
-    //print_r($_POST);
-    //die();
-    //self::executeIndex($request);
-    $changed = 0;
-    
-    if ($settings = $request->getParameter('cs_setting'))
+    $changed = 0; 
+    $settings = array_merge($request->getParameter('cs_setting'), $request->getFiles('cs_setting'));
+    if (count($settings))
     {
       foreach (Doctrine::getTable('csSetting')->findAllForList() as $setting)
       {
-	if (isset($settings[$setting->getSlug()]))
-	{
-	  $form = new csSettingAdminForm($setting);
-	    $setting->setValue($form->getSettingValidator()->clean($settings[$setting->getSlug()]));
-	    $setting->save();
-	    $changed = 1;
-	}
+        if (isset($settings[$setting->getSlug()]))
+        {
+          $form = new csSettingAdminForm($setting);
+          if ($validated = $form->getSettingValidator()->clean($settings[$setting->getSlug()]))
+          {
+            if (is_object($validated) && get_class($validated) == 'sfValidatedFile')
+            {
+              $validated->save();
+              $validated = str_replace($validated->getPath().DIRECTORY_SEPARATOR, '', $validated);
+            }
+            $setting->setValue($validated);
+            $setting->save();
+            $changed = 1;
+          }
+        }
       }
     }
     
@@ -99,7 +104,7 @@ class BasecsSettingActions extends AutocsSettingActions
     $this->redirect($request->getReferer());
   }
   
-  public function processUpload($settings, $files)
+  /*public function processUpload($settings, $files)
   {
     $default_path = csSettings::getDefaultUploadPath();
     
@@ -139,5 +144,5 @@ class BasecsSettingActions extends AutocsSettingActions
         $setting->save();
       }
     }
-  }
+  }*/
 }

@@ -97,7 +97,7 @@ abstract class PlugincsSettingForm extends BasecsSettingForm
   }
   public function getSelectSettingValidator()
   {
-    return new sfValidatorChoice(array('choices' => $this->getObject()->getOptionsArray(), 'required' => false));
+    return new sfValidatorChoice(array('choices' => array_keys($this->getObject()->getOptionsArray()), 'required' => false));
   }
   
   //Type Model
@@ -116,13 +116,23 @@ abstract class PlugincsSettingForm extends BasecsSettingForm
     $path = $this->getObject()->getUploadPath() . '/' . $this->getObject()->getValue();
     $options = array(
           'file_src' => $this->getObject()->getValue(),
-          'template' => "<a href='/$path'>%file%</a><br />%input%<br />%delete% %delete_label%",
+          'template' => "%file%<br />%input%<br />%delete% %delete_label%",
       );
     
     // If you want to pass the widget custom settings, you can override in your setting's options  
     $options = array_merge($options, $this->getObject()->getOptionsArray());
+    unset($options['upload_path']);
     
     return new sfWidgetFormInputFileEditable($options);
+  }
+  
+  public function getUploadSettingValidator()
+  {
+    return new sfValidatorFile(array(
+      'path' => $this->getObject()->getUploadPath(),
+      'mime_types' => 'web_images',
+      'required' => false,
+      ));
   }
   
   // Overriding Bind in this case allows us to have the form field "setting_group_new" for usability

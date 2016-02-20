@@ -8,7 +8,7 @@ class SettingsListForm extends sfForm
     {
       $form = new csSettingAdminForm($setting);
       $this->widgetSchema[$setting['slug']] = $form->getSettingWidget();
-      $this->widgetSchema[$setting['slug']]->setDefault($setting->getValue());
+      $this->widgetSchema[$setting['slug']]->setDefault($setting->getRawValue());
       $this->validatorSchema[$setting['slug']] = $form->getSettingValidator();      
     }
     

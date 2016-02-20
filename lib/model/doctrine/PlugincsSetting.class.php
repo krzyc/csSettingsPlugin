@@ -97,9 +97,14 @@ abstract class PlugincsSetting extends BasecsSetting
         }
         break;
       case 'yesno':
-        return (bool) $value;
+        return ($value == 'yes');
     }
     
     return $value;
+  }
+
+  public function getRawValue()
+  {
+    return $this->_get('value');
   }
 }

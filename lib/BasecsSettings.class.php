@@ -15,7 +15,7 @@ class BasecsSettings
     
   static function getDefaultUploadPath()
   {
-    return 'uploads/setting';
+    return sfConfig::get('app_csSettingsPlugin_uploadDir', sfConfig::get('sf_upload_dir'));
   }
 
   static function isAuthenticated($user = null)
